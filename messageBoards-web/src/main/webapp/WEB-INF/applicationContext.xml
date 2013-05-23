@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+       default-lazy-init="true">
+
+    <!-- Activates scanning of @Autowired -->
+    <context:annotation-config/>
+
+    <!-- Activates scanning of @Repository and @Service -->
+    <context:component-scan base-package="fi.kaicao"/>
+
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+        <constructor-arg ref="httpClientFactory"/>
+
+        <property name="messageConverters">
+            <list>
+                <!-- XML converter -->
+                <bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+                    <property name="marshaller" ref="jaxbMarshaller"/>
+                    <property name="unmarshaller" ref="jaxbMarshaller"/>
+                </bean>
+                <!-- JSON converter -->
+                <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="httpClientParams" class="org.apache.commons.httpclient.params.HttpClientParams">
+        <property name="connectionManagerClass"
+                  value="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager"/>
+    </bean>
+    <bean id="httpClient" class="org.apache.commons.httpclient.HttpClient">
+        <constructor-arg ref="httpClientParams"/>
+    </bean>
+
+    <bean id="httpClientFactory" class="org.springframework.http.client.CommonsClientHttpRequestFactory">
+        <constructor-arg ref="httpClient"/>
+    </bean>
+
+    <bean id="jaxbMarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+        <property name="classesToBeBound">
+            <list>
+                <value>fi.kaicao.ws.dto.MessageDTO</value>
+                <value>fi.kaicao.ws.dto.MessageListDTO</value>
+            </list>
+        </property>
+    </bean>
+</beans>

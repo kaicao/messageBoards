@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<enunciate label="messageBoards-cxf-ws" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="http://enunciate.codehaus.org/schemas/enunciate-1.26.xsd">
+    <namespaces>
+        <namespace id="api" uri="http://soap.api.ws.kaicao.fi/" />
+    </namespaces>
+
+    <webapp mergeWebXML="web.xml" />
+
+    <modules>
+        <java-client disabled="false" disableCompile="false" bundleSourcesWithClasses="false"/>
+        <amf disabled="true" />
+        <c disabled="true" />
+        <obj-c disabled="true" />
+        <csharp disableCompile="true" />
+        <cxf disabled="false" />
+        <gwt disabled="true" />
+        <jaxws-ri disabled="true" />
+        <jersey disabled="true" />
+        <spring-app disabled="false"
+                    applicationContextFilename="applicationContext.xml"
+                    contextConfigLocation="classpath*:/applicationContext.xml">
+
+        </spring-app>
+
+
+        <docs docsDir="/" includeDefaultDownloads="true" splashPackage="fi.kaicao.ws.api" title="messageBoards.ws"
+              copyright="fi.kaicao.ws.api">
+            <download name="Files and License"
+                      description="The license file governing the use of this API." />
+        </docs>
+    </modules>
+</enunciate>
