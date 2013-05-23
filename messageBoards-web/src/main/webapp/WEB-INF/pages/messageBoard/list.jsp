@@ -152,6 +152,10 @@
                 </div>
             </div>
         </form>
+        <p class="asterix">
+            <span class="red">* </span>
+            <fmt:message key="required.field" />
+        </p>
     </div>
     <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">

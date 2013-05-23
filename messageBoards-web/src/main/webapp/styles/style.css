@@ -267,10 +267,18 @@ span.pagelinks {
     }
 }
 
+.asterix {
+    margin: 5px 0 5px 0;
+    font-size: 12px;
+}
 
 .red {
     color: red;
 }
 .error{
     color: #b94a48;
+}
+
+.modal-body {
+    max-height: 500px;
 }
