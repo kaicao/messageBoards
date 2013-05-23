@@ -45,6 +45,7 @@
                 <version>2.3</version>
                 <configuration>
                     <escapeString>\</escapeString>
+                    <warName>${artifactId}</warName>
                 </configuration>
             </plugin>
             <plugin>
@@ -204,5 +205,9 @@
         </dependency>
 
     </dependencies>
+
+    <properties>
+        <war.name>web</war.name>
+    </properties>
 
 </project>
