@@ -162,7 +162,7 @@
             <fmt:message key="close" />
         </button>
 
-        <c:url var="createMessageURL" value="${ctx}/messageBoard/createMessage" />
+        <c:url var="createMessageURL" value="/messageBoard/createMessage" />
         <input type="button" class="btn btn-primary"
                onclick="doCreateMessageAjax('<c:out value="${createMessageURL}"/>')"
                value="<fmt:message key="save"/>" />
