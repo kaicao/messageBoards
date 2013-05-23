@@ -102,6 +102,7 @@ function doCreateMessageAjax(url) {
 
                 // Close the modal window
                 $('#createMessage').modal('hide');
+                window.location.reload();
 
             },
             error:function (e) {
