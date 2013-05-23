@@ -67,10 +67,11 @@ public class RestClient {
 
         LOG.debug("RESTClient GET: listMessages(version=" + version + ", format=" + format + ")");
         String restBaseUrl = env.getProperty("REST_BASE_URL");
+        String messageBoardRESTUrl = env.getProperty("REST_MESSAGE_BOARD_URL");
         String listMessagesMethod = env.getProperty("LIST_MESSAGES_METHOD");
 
         StringBuffer restCall = new StringBuffer();
-        restCall.append(restBaseUrl).append(listMessagesMethod)
+        restCall.append(restBaseUrl).append(messageBoardRESTUrl).append(listMessagesMethod)
                 .append("/").append(version)
                 .append("/").append(format);
 
