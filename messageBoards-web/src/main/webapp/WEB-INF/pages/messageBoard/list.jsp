@@ -112,29 +112,34 @@
             <div class="well form-horizontal">
                 <div class="control-group">
                     <label class="control-label" for="create_title">
-                        <fmt:message key="table.title" /></label>
+                        <fmt:message key="table.title" />
+                        <span class="red">*</span>
+                    </label>
 
                     <div class="controls">
                         <input type="text" id="create_title" name="title"
-                               class="required input-large" />
+                               class="input-large" />
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="create_sender">
-                        <fmt:message key="table.sender" /></label>
+                        <fmt:message key="table.sender" />
+                        <span class="red">*</span>
+                    </label>
 
                     <div class="controls">
                         <input type="text" id="create_sender" name="sender"
-                               class="required input-large"/>
+                               class="input-large"/>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="create_url">
-                        <fmt:message key="table.url" /></label>
+                        <fmt:message key="table.url" />
+                    </label>
 
                     <div class="controls">
                         <input type="text" id="create_url" name="url"
-                               class="required url input-large"/>
+                               class="input-large"/>
                     </div>
                 </div>
                 <div class="control-group">
@@ -162,6 +167,13 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $("#createMessageForm").validate();
+        $("#createMessageForm").validate({
+            rules: {
+                "title": {required:true, maxlength:100},
+                "sender": {required:true, maxlength:100},
+                "url": {url:true, maxlength:100},
+                "content": {maxlength:300}
+            }
+        });
     });
 </script>
