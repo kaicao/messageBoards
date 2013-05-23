@@ -50,11 +50,13 @@ public class RestClient {
     public MessageListDTO listMessages(String version) {
 
         LOG.debug("RESTClient GET: listMessages(version=" + version + ")");
-        String restBaseUrl = env.getProperty("REST_BASE_URL");
+
+        String restBaseUrl = env.getProperty("REST_BASE");
+        String messageBoardRESTUrl = env.getProperty("REST_MESSAGE_BOARD_URL");
         String listMessagesMethod = env.getProperty("LIST_MESSAGES_METHOD");
 
         StringBuffer restCall = new StringBuffer();
-        restCall.append(restBaseUrl).append(listMessagesMethod)
+        restCall.append(restBaseUrl).append(messageBoardRESTUrl).append(listMessagesMethod)
                 .append("/").append(version);
 
         return restTemplate.getForEntity(restCall.toString(), MessageListDTO.class).getBody();

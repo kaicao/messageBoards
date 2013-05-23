@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -34,23 +35,16 @@ public class MessageBoardController extends BaseFormController {
     private RestClient restClient;
 
     @RequestMapping(method= RequestMethod.GET)
-    public ModelAndView listMessages() {
+    public ModelAndView listMessages(
+            HttpServletRequest request
+    ) {
         ModelAndView mav = new ModelAndView();
 
         try {
             MessageListDTO messageList =
-                    //messageSOAPService.listMessages();
                     restClient.listMessages("1", "XML");
             mav.addObject("messageList", messageList);
 
-            /*
-            MessageDTO message = new MessageDTO();
-            message.setTitle("Test from web 3");
-            message.setSender("MacBook3");
-            message.setContent("Test content from web module3");
-            message.setUrl("http://localhost:9000/äöå");
-            messageSOAPService.createMessage(message);
-            */
         } catch (Exception e) {
             e.printStackTrace();
         }
