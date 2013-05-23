@@ -51,7 +51,7 @@ public class RestClient {
 
         LOG.debug("RESTClient GET: listMessages(version=" + version + ")");
 
-        String restBaseUrl = env.getProperty("REST_BASE");
+        String restBaseUrl = env.getProperty("REST_BASE_URL");
         String messageBoardRESTUrl = env.getProperty("REST_MESSAGE_BOARD_URL");
         String listMessagesMethod = env.getProperty("LIST_MESSAGES_METHOD");
 
