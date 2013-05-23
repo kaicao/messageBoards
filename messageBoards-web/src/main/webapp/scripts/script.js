@@ -49,3 +49,64 @@ function confirmMessage(obj) {
     ans = confirm(msg);
     return ans;
 }
+
+function showMessageDetail(title, sender, url, content) {
+    $('#detail_title').val(title);
+    $('#detail_sender').val(sender);
+    $('#detail_url').val(url);
+    $('#detail_content').val(content);
+
+    $('#detail_title').attr('readonly', true);
+    $('#detail_sender').attr('readonly', true);
+    $('#detail_url').attr('readonly', true);
+    $('#detail_content').attr('readonly', true);
+}
+
+function isEmpty(val){
+    return (val === undefined || val == null || val.length <= 0) ? true : false;
+}
+
+function doCreateMessageAjax(url) {
+    if ($("#createMessageForm").valid()) {
+        var message = new Object();
+        message.title = $('#create_title').val();
+        message.sender = $('#create_sender').val();
+        message.url = $('#create_url').val();
+        message.content = $('#create_content').val();
+
+        $.ajax({
+            type:"POST",
+            url:url,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json; charset=ISO-8859-1'
+            },
+            data:JSON.stringify(message),
+            dataType: "json",
+            success:function (response) {
+
+                $('#datatable > tbody').prepend(
+                    '<tr>' +
+                        '<td>' + response.title + '</td>' +
+                        '<td>' + response.sender + '</td>' +
+                        '<td>' + response.content + '</td>' +
+                        '<td>' + response.url + '</td>' +
+                    '</tr>'
+                );
+
+                // Unset the input fields
+                $('#create_title').val('');
+                $('#create_sender').val('');
+                $('#create_url').val('');
+                $('#create_content').val('');
+
+                // Close the modal window
+                $('#createMessage').modal('hide');
+
+            },
+            error:function (e) {
+                Console.log(e.toString());
+            }
+        });
+    }
+}

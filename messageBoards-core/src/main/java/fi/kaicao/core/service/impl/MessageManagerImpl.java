@@ -3,6 +3,7 @@ package fi.kaicao.core.service.impl;
 import fi.kaicao.core.domain.Message;
 import fi.kaicao.core.repo.MessageRepository;
 import fi.kaicao.core.service.MessageManager;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +31,6 @@ public class MessageManagerImpl implements MessageManager {
 
     @Override
     public List<Message> findAllMessages() {
-        return messageRepository.findAll();
+        return messageRepository.findAll(new Sort(Sort.Direction.DESC, "createTime"));
     }
 }

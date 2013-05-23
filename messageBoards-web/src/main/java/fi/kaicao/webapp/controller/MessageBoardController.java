@@ -5,13 +5,13 @@ import fi.kaicao.ws.api.soap.MessageSOAPService;
 import fi.kaicao.ws.api.soap.impl.MessageSOAPServiceImpl;
 import fi.kaicao.ws.dto.MessageDTO;
 import fi.kaicao.ws.dto.MessageListDTO;
+import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -37,17 +37,11 @@ public class MessageBoardController extends BaseFormController {
     public ModelAndView listMessages() {
         ModelAndView mav = new ModelAndView();
 
-        MessageSOAPService messageSOAPService = new MessageSOAPServiceImpl();
         try {
             MessageListDTO messageList =
                     //messageSOAPService.listMessages();
                     restClient.listMessages("1", "XML");
-            mav.addObject(messageList);
-
-            for (MessageDTO message : messageList.getMessageList()) {
-                System.out.println(message.toString());
-            }
-
+            mav.addObject("messageList", messageList);
 
             /*
             MessageDTO message = new MessageDTO();
@@ -63,5 +57,24 @@ public class MessageBoardController extends BaseFormController {
 
         mav.setViewName("/messageBoard/list");
         return mav;
+    }
+
+    @RequestMapping(
+            method = RequestMethod.POST,
+            value = "createMessage"
+    )
+    public
+    @ResponseBody
+    MessageDTO createMessage(
+            @RequestBody MessageDTO message
+    ) {
+        try {
+            MessageSOAPService messageSOAPService = new MessageSOAPServiceImpl();
+            messageSOAPService.createMessage(message);
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+
+        return message;
     }
 }
