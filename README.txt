@@ -2,6 +2,8 @@
 # 2 wars need to deploy messageBoards-cxf-ws.war (WS server side), messageBoards-web.war (Web client)
 # Recommend server Java Opts -Xmx1024m
 
+# CXF Service Endpoints can be found at localhost:8080/messageBoards-cxf-ws after deployment
+
 cd messageBoards
 # mvn install modules with h2 (in memory database) profile
 mvn install -P h2
